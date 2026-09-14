@@ -1,0 +1,19 @@
+{
+  "name": "rock-climbing-on-indoor-climbing-walls",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "CGDD 'Game Design from Everyday Life' - first playable. A first-person indoor climbing game about grip, weight and energy.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "three": "0.160.1"
+  },
+  "devDependencies": {
+    "vite": "5.4.11"
+  }
+}

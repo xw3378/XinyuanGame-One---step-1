@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-page-node-id="lIDgw6lhhVKE5oHkAjy3g7">
+  <head data-page-node-id="2HD0aldO80jOINxGEycnNc">
+    <meta charset="UTF-8" data-page-node-id="jXUYa1LdsJtU9xPMEyPSh1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="bVX3t81GABC7IrHzSaFYtV" />
+    <title>Play — Rock climbing on indoor climbing walls</title>
+    <script type="module" crossorigin src="./assets/game-AVc7aXjQ.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/style-B08HvbPz.css" data-page-node-id="TgBD1z7PpFaFs3LCdKnKOz">
+  </head>
+  <body data-page-node-id="xvV2OksxR1j1j30PKtCBN7">
+    <div class="game-shell" data-page-node-id="q8qwQR78ioxuQB9v82pbSF">
+      <canvas id="scene" data-page-node-id="GDpSLmCXtGpyAKB4s7py4K"></canvas>
+      <div class="crosshair" id="crosshair" data-page-node-id="z0DeJMQdvaOU3H6smxJAHT"></div>
+
+      <nav class="game-nav" data-page-node-id="BJpBJPgyLgzJ6DgKSLCDFw">
+        <a class="nav__link" href="./index.html" data-page-node-id="xoRhTsZsEtqwN1fX9jAhD7">Project site</a>
+        <a class="nav__link" href="./process.html" data-page-node-id="0ZSzf9mMZ7MtZHOXTA67Ca">Development process</a>
+      </nav>
+
+      <div class="panel panel--top" data-page-node-id="2GvC8S2flZl84MyZMiUcfS">
+        <h2 id="level-name" data-page-node-id="AfC2RJNlqQNJHI4gZZBDW1">1. Gentle Warm-up Wall</h2>
+        <div class="sub" id="level-sub" data-page-node-id="TnQ5yExqPtRaNppyxQckRh">Shallow slope + large grippy holds</div>
+        <div class="sub" id="aim-info" data-page-node-id="UaTKFivTUgbsnvlWmhoErP"></div>
+        <div id="rest-flag" data-page-node-id="UGIEH9SYPIsORGuqGBKC7V"></div>
+      </div>
+
+      <div class="panel panel--meters" data-page-node-id="YC5iPyEIOvyWOmOmSQvolH">
+        <div class="meter" data-page-node-id="EQXaTvwD3HzTzXXKwmzh85">
+          <div class="meter__label" data-page-node-id="2sXKfSfWZRw8Df14iKhNH5">
+            <span id="energy-label" data-page-node-id="GyVtu6attXiBVHU8XCuzUD">Energy</span><span id="time-label" data-page-node-id="gNCVvsgGq48RUs5Wa1f2fC">—</span>
+          </div>
+          <div class="meter__track" data-page-node-id="iBbGZYt7ukOm86qroTTvQQ"><div class="meter__fill" id="energy-fill" data-page-node-id="EzSqloGHjqYx3IOThhgoDK"></div></div>
+        </div>
+        <div class="meter" data-page-node-id="ioBRBONEVlSWlyY6ZH87MH">
+          <div class="meter__label" data-page-node-id="YEwRECOtFyJHkOFW43JhFG">
+            <span id="arm-load-label" data-page-node-id="XSrKraWEIHS5ARryDiyKa9">Weight on arms</span><span id="height-label" data-page-node-id="7dZqa6yKzufimZJBwHog8k">0 m</span>
+          </div>
+          <div class="meter__track" data-page-node-id="Wr1QCqIGviooXbA08w6DEh"><div class="meter__fill" id="arm-load-fill" data-page-node-id="SCpm39QRQNG9bTtaCy1yOv"></div></div>
+        </div>
+        <div class="meter" data-page-node-id="26LLn5WoGnQiUpyu7U8HiN">
+          <div class="meter__label" data-page-node-id="wJyjd8uiN0xbjTWA2aqA4q"><span data-page-node-id="zXK41mjIU12Tu3Kj8oPcPd">Balance</span></div>
+          <div class="meter__track" data-page-node-id="pVyXp8841ESAO7sAefnQhU"><div class="meter__fill" id="balance-fill" data-page-node-id="GsGdF79qhJOboXPkqD6DN8"></div></div>
+        </div>
+        <div class="grip-row" data-page-node-id="hAccSFPYsF6sVK6WfMi8YI">
+          <div class="grip" data-page-node-id="5fVKwmq681CoieKg84cCgu">
+            <span data-page-node-id="rLasfy1FPI04OOxtq09o9y">L hand</span>
+            <div class="meter__track" data-page-node-id="fWnUVcVEln5ylJCWEGIeou"><div class="meter__fill" id="grip-lh" data-page-node-id="H2LTtMwhW5ADLZLyuXhEQE"></div></div>
+          </div>
+          <div class="grip" data-page-node-id="MuamyVdWrEodVbpp4GllpY">
+            <span data-page-node-id="uQsq1ONy0I53Fc8NftFSzK">R hand</span>
+            <div class="meter__track" data-page-node-id="R0IEaDHTpEz0rJ2TnEFz9z"><div class="meter__fill" id="grip-rh" data-page-node-id="3cFjhS94Jee4K1SyBFH43H"></div></div>
+          </div>
+          <div class="grip" data-page-node-id="wNkQivV9I0DxCgTwL7d9B7">
+            <span data-page-node-id="cnycPKr3RUfASHz4ABrEfQ">L foot</span>
+            <div class="meter__track" data-page-node-id="fPxipv2LN2Nlu3Wklbn5RB"><div class="meter__fill" id="grip-lf" data-page-node-id="Lx4hp5H5431vHV8RzzInDy"></div></div>
+          </div>
+          <div class="grip" data-page-node-id="z2O16swCQ1U6rIDD82c0DE">
+            <span data-page-node-id="N1FOTdKBFNxF7VzL3TZfdV">R foot</span>
+            <div class="meter__track" data-page-node-id="jE69x93RaABemnOdef9Qdv"><div class="meter__fill" id="grip-rf" data-page-node-id="sKWGIVAAMisUb2reb1LCtL"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel--controls" data-page-node-id="H5hdhad5AMhs8mWbTRan7P">
+        <h2 data-page-node-id="QOOyP6IrGFNLKUfFpIDIiI">Controls</h2>
+        <ul class="key-list" data-page-node-id="9lVEnPLKwaGRiAkGPrDNPc">
+          <li data-page-node-id="E8t0siGaSOjCZRQHupLZxy"><span data-page-node-id="AflADSQpzn0HwXW6NsrGnB">Move your mouse</span><span data-page-node-id="sChzm4DycvxwfSNRk3DysG">look / aim</span></li>
+          <li data-page-node-id="ESHSbfAxJLYcpUBqkr0R8K"><span data-page-node-id="APHkKMgPyThSiwqb2rgWXt">Left hand to aimed hold</span><span data-page-node-id="HfHf7VtxnCAlYQiVYxehO2"><kbd data-page-node-id="cJwzydiS8042jkHvtH7Wa2">Q</kbd></span></li>
+          <li data-page-node-id="tnKInMRXenlK2EOoCIJfYA"><span data-page-node-id="FsNDlWpLh3914T3dj0Pw1l">Right hand to aimed hold</span><span data-page-node-id="TMGxe19xgl8SvOkiNu1G7H"><kbd data-page-node-id="Rpj9mD0f46a4x2JbBKeKtV">E</kbd></span></li>
+          <li data-page-node-id="s4IgBqhozguD0XdrLFqt8U"><span data-page-node-id="Yj9LngNIMmuGkkpetSNwIa">Left foot to aimed hold</span><span data-page-node-id="s9JJozWpHf6GNxlMEdYxHf"><kbd data-page-node-id="RSEJ2HZXKiGr4CmKKGtgUW">Z</kbd></span></li>
+          <li data-page-node-id="HNnLEqmxeGHaTOW6nFQaDK"><span data-page-node-id="OU5Dc0jJrlrVlMNFbsPiTD">Right foot to aimed hold</span><span data-page-node-id="HIXPdT0rzAFCEgqogVyzVT"><kbd data-page-node-id="N1SsHPyYe6hmbkQ28FpbqD">C</kbd></span></li>
+          <li data-page-node-id="S2cA4Gm0q5PK1YF2R7mVfR"><span data-page-node-id="Hixa6NoDF64u2eBIeUxrwn">Shift weight left / right</span><span data-page-node-id="MsIdIHP9fyjOXWIuBscq7F"><kbd data-page-node-id="Gz3Of97JH7xU0xThr3L6EG">A</kbd><kbd data-page-node-id="IC2paQPmqicXlHLynLTwQv">D</kbd></span></li>
+          <li data-page-node-id="cYAox8KTAAjy6r4Vyd9fc8"><span data-page-node-id="eLua1A5qokRgnjN6l33Rxn">Hips in / out from wall</span><span data-page-node-id="RJU7jVwHu0GHepjzjZc1VY"><kbd data-page-node-id="OaIZYLEQ0kWrmnp6W3o6rp">W</kbd><kbd data-page-node-id="BDGt7tLWXEOTObkclys7H3">S</kbd></span></li>
+          <li data-page-node-id="7ZyuER9MLvIXuHHLPax3DI"><span data-page-node-id="xfWakX6GnDTLsnS0gCGYf4">Rest (recover energy)</span><span data-page-node-id="HTCPaVdb9JRfZWFD2p7ee7"><kbd data-page-node-id="TxEeESjD2QsU547cu4omcj">Space</kbd></span></li>
+          <li data-page-node-id="HcXhv3FBa6EggFx7ZaU6rf"><span data-page-node-id="UNSHsP8zxjQQ2eOGGgRzvV">Restart route</span><span data-page-node-id="A7bG801GNaLWHQylzyVy19"><kbd data-page-node-id="CKBK9noeBH8rqECRkCrRNl">R</kbd></span></li>
+          <li data-page-node-id="tT4JbJDSj2DGyoyH8aXqdZ"><span data-page-node-id="dMwCNviuNFLJmJiblAfRBt">Switch challenge</span><span data-page-node-id="MsS5cfBtuibUNlsD0MUgI9"><kbd data-page-node-id="Kj01uyWWt7THC5utUa0A6b">1</kbd><kbd data-page-node-id="I7VSB5Fbts31SSQDZRfHoK">2</kbd><kbd data-page-node-id="Xv09eHrhV8pyHPq2xX1yOA">3</kbd></span></li>
+          <li data-page-node-id="DcCCUzJExMHR89F61SDxky"><span data-page-node-id="9DljxdpE3Jr4t6qQOd4fpI">Toggle sound</span><span data-page-node-id="DqFzkcw58dXQQDYe1TwJ9r"><kbd data-page-node-id="JkDfozJMRjYewsoqV9NFTM">M</kbd></span></li>
+        </ul>
+      </div>
+
+      <div class="panel panel--levels" data-page-node-id="rzCgSwAWBZgLCV2kAv7D2P">
+        <h2 data-page-node-id="7Ro8zMyNT21Dd39uVUYiJ1">Challenges</h2>
+        <button class="level-btn" data-level="gentle" data-page-node-id="iOzv3ALB6Nmc8tlLDHRduP">
+          1 · Gentle Warm-up Wall
+          <small data-page-node-id="Ls4JSEYZQ0K0aQnPbv9GrA">Shallow slope + large grippy holds</small>
+        </button>
+        <button class="level-btn" data-level="slab" data-page-node-id="0dBL7QAeMyl2moxteMAiwH">
+          2 · Steep Slab Climb
+          <small data-page-node-id="se1eW5FfdbRUGSg6wOxBSt">Moderate overhang + mixed-size holds</small>
+        </button>
+        <button class="level-btn" data-level="slippery" data-page-node-id="uwd1w24AJo8Pb0s4LyZc6O">
+          3 · Slippery Climb
+          <small data-page-node-id="wDPzHHUWZyn87vYmhuAj4g">Heavy overhang + sparse slippery holds</small>
+        </button>
+      </div>
+
+      <div class="toast" id="toast" data-page-node-id="tjTutO3dZWTvexvrcEZH66"></div>
+
+      <div class="overlay" id="overlay" data-page-node-id="w0ru06nPhBARujsaYZne4o">
+        <div class="overlay__card" data-page-node-id="UAQItdZ7EuQ9ZqoxFGEq4i">
+          <h2 id="overlay-title" data-page-node-id="H0gmrlOw3zxEx1q1H3tAcD"></h2>
+          <p id="overlay-body" data-page-node-id="NhUq3A8FOYAMCHUlG6WcuN"></p>
+          <button class="btn btn--primary" id="overlay-restart" data-page-node-id="q9Skyydq4pOvlDD5gL8pZp">Climb again (R)</button>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

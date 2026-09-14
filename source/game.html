@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Play — Rock climbing on indoor climbing walls</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <div class="game-shell">
+      <canvas id="scene"></canvas>
+      <div class="crosshair" id="crosshair"></div>
+
+      <nav class="game-nav">
+        <a class="nav__link" href="./index.html">Project site</a>
+        <a class="nav__link" href="./process.html">Development process</a>
+      </nav>
+
+      <div class="panel panel--top">
+        <h2 id="level-name">1. Gentle Warm-up Wall</h2>
+        <div class="sub" id="level-sub">Shallow slope + large grippy holds</div>
+        <div class="sub" id="aim-info"></div>
+        <div id="rest-flag"></div>
+      </div>
+
+      <div class="panel panel--meters">
+        <div class="meter">
+          <div class="meter__label">
+            <span id="energy-label">Energy</span><span id="time-label">—</span>
+          </div>
+          <div class="meter__track"><div class="meter__fill" id="energy-fill"></div></div>
+        </div>
+        <div class="meter">
+          <div class="meter__label">
+            <span id="arm-load-label">Weight on arms</span><span id="height-label">0 m</span>
+          </div>
+          <div class="meter__track"><div class="meter__fill" id="arm-load-fill"></div></div>
+        </div>
+        <div class="meter">
+          <div class="meter__label"><span>Balance</span></div>
+          <div class="meter__track"><div class="meter__fill" id="balance-fill"></div></div>
+        </div>
+        <div class="grip-row">
+          <div class="grip">
+            <span>L hand</span>
+            <div class="meter__track"><div class="meter__fill" id="grip-lh"></div></div>
+          </div>
+          <div class="grip">
+            <span>R hand</span>
+            <div class="meter__track"><div class="meter__fill" id="grip-rh"></div></div>
+          </div>
+          <div class="grip">
+            <span>L foot</span>
+            <div class="meter__track"><div class="meter__fill" id="grip-lf"></div></div>
+          </div>
+          <div class="grip">
+            <span>R foot</span>
+            <div class="meter__track"><div class="meter__fill" id="grip-rf"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel--controls">
+        <h2>Controls</h2>
+        <ul class="key-list">
+          <li><span>Move your mouse</span><span>look / aim</span></li>
+          <li><span>Left hand to aimed hold</span><span><kbd>Q</kbd></span></li>
+          <li><span>Right hand to aimed hold</span><span><kbd>E</kbd></span></li>
+          <li><span>Left foot to aimed hold</span><span><kbd>Z</kbd></span></li>
+          <li><span>Right foot to aimed hold</span><span><kbd>C</kbd></span></li>
+          <li><span>Shift weight left / right</span><span><kbd>A</kbd><kbd>D</kbd></span></li>
+          <li><span>Hips in / out from wall</span><span><kbd>W</kbd><kbd>S</kbd></span></li>
+          <li><span>Rest (recover energy)</span><span><kbd>Space</kbd></span></li>
+          <li><span>Restart route</span><span><kbd>R</kbd></span></li>
+          <li><span>Switch challenge</span><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd></span></li>
+          <li><span>Toggle sound</span><span><kbd>M</kbd></span></li>
+        </ul>
+      </div>
+
+      <div class="panel panel--levels">
+        <h2>Challenges</h2>
+        <button class="level-btn" data-level="gentle">
+          1 · Gentle Warm-up Wall
+          <small>Shallow slope + large grippy holds</small>
+        </button>
+        <button class="level-btn" data-level="slab">
+          2 · Steep Slab Climb
+          <small>Moderate overhang + mixed-size holds</small>
+        </button>
+        <button class="level-btn" data-level="slippery">
+          3 · Slippery Climb
+          <small>Heavy overhang + sparse slippery holds</small>
+        </button>
+      </div>
+
+      <div class="toast" id="toast"></div>
+
+      <div class="overlay" id="overlay">
+        <div class="overlay__card">
+          <h2 id="overlay-title"></h2>
+          <p id="overlay-body"></p>
+          <button class="btn btn--primary" id="overlay-restart">Climb again (R)</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

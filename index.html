@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock climbing on indoor climbing walls — Game Design from Everyday Life</title>
+    <link rel="stylesheet" crossorigin href="./assets/style-B08HvbPz.css">
+  </head>
+  <body>
+    <header class="nav">
+      <a class="nav__brand" href="./index.html">Rock climbing on indoor climbing walls</a>
+      <nav class="nav__links">
+        <a class="nav__link is-active" href="./index.html">Home</a>
+        <a class="nav__link" href="./game.html">Play the Game</a>
+        <a class="nav__link" href="./process.html">Development Process</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="wrap hero">
+        <p class="hero__eyebrow">Game Design from Everyday Life · First Playable</p>
+        <h1>Climbing is not arm strength.<br />It is feet, balance and planning.</h1>
+        <p class="hero__lede">
+          A first-person indoor climbing game built from a domain I actually climb in. You do not
+          pull yourself up the wall — you decide where your weight goes, and the wall tells you
+          whether that decision was any good.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="./game.html">Play the current build</a>
+          <a class="btn btn--ghost" href="#system">See the system design</a>
+          <span class="pill">Dependency track: C — npm + Vite + Three.js</span>
+        </div>
+      </section>
+
+      <section class="wrap section">
+        <p class="section__kicker">Designer statement</p>
+        <h2 class="section__title">Why this domain</h2>
+        <blockquote>
+          "I have tried indoor rock‑climbing several times. I found that climbing is not just about
+          arm strength. It demands careful foot placement, body balance and route planning to finish
+          a wall."
+          <cite>— Xinyuan Wang, project brief, Section 2</cite>
+        </blockquote>
+        <p style="margin-top: 18px">
+          The game exists to make that realisation happen inside a player's hands rather than in a
+          paragraph of advice. Everything below follows the exported development brief, which is the
+          specification for this project.
+        </p>
+      </section>
+
+      <section class="wrap section">
+        <p class="section__kicker">Game idea</p>
+        <h2 class="section__title">What the game is</h2>
+        <div class="grid grid--2">
+          <div class="card">
+            <h3>Player goal</h3>
+            <p>
+              Reach the summit hold. That is the whole stated objective — quoted from the brief:
+              "Reach the summit hold while maintaining stable grip and balance, without falling."
+            </p>
+          </div>
+          <div class="card">
+            <h3>Core learning shift</h3>
+            <p>
+              "Beginners think climbing means pulling yourself upward with arm strength. Experts know
+              climbing means understanding the relationship among footholds, weight and energy, and
+              movement sequences to move efficiently."
+            </p>
+          </div>
+          <div class="card">
+            <h3>Core mechanic</h3>
+            <p>
+              <strong>Grip – weight – balance.</strong> Every choice you make redistributes your
+              weight across four points of contact, and every contact has a limit.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Why first-person, why 3D</h3>
+            <p>
+              The brief specifies first-person so you must judge reach distance and hold condition
+              directly, and 3D so that wall depth, hold geometry and the lean of an overhang are
+              actually visible.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap section">
+        <p class="section__kicker">Domain knowledge</p>
+        <h2 class="section__title">The gap between novice and expert</h2>
+        <div class="grid grid--2">
+          <div class="card">
+            <h3>Novice misconception</h3>
+            <p>
+              "Beginners think climbing success mainly depends on strong arm and upper‑body
+              strength."
+            </p>
+            <p>
+              In practice they "pull upward with their arms too hard, ignore available footholds,
+              lean their body too far away from the wall, or rush movements without planning ahead."
+            </p>
+          </div>
+          <div class="card">
+            <h3>Most important domain challenge</h3>
+            <p>
+              "The relationship between energy management, body positioning, body weight distribution
+              and route‑sequence planning."
+            </p>
+          </div>
+        </div>
+        <div class="callout" style="margin-top: 20px">
+          <strong>Why this becomes playable.</strong> Weight distribution, grip security, energy and
+          reach distance are all continuous quantities. That makes them a system rather than a
+          script: the player forms a judgement ("that hold looks small, but if I drop my hips the
+          load comes off my hands"), acts on it, and gets an answer back within a second. The domain
+          challenge and the game loop are the same thing.
+        </div>
+      </section>
+
+      <section class="wrap section" id="system">
+        <p class="section__kicker">System design</p>
+        <h2 class="section__title">System graph and data model</h2>
+        <figure>
+          <img
+            class="graph"
+            src="./assets/system-graph-N6jopR9R.png"
+            alt="Hand-drawn system graph: game environment, player input, win/lose conditions, and the three challenge levels."
+          />
+          <figcaption>
+            The hand-drawn system graph. Per the student's confirmation, it matches Sections 4 and 5
+            of the brief, summarised below.
+          </figcaption>
+        </figure>
+
+        <div class="grid grid--2" style="margin-top: 22px">
+          <div class="card">
+            <h3>Environment data</h3>
+            <p>
+              "Handhold and foothold positions, hold size and texture, body distance from the wall,
+              remaining energy, possible movement paths, and distance to the top goal."
+            </p>
+          </div>
+          <div class="card">
+            <h3>Player-controlled data</h3>
+            <p>
+              "Reach for handholds, place feet on footholds, shift body weight and direction, pause
+              to rest, choose a climbing sequence, and adjust balance."
+            </p>
+          </div>
+          <div class="card">
+            <h3>System-calculated results</h3>
+            <p>
+              "The climber moves smoothly or lags, hands slip off holds, body becomes out‑of‑balance,
+              energy drains quickly."
+            </p>
+          </div>
+          <div class="card">
+            <h3>Important states</h3>
+            <p>
+              "Secure / slipping grip, balanced / off‑balanced body, rested / exhausted climber,
+              reachable / out‑of‑reach hold, safe / fall‑prone position, firm / loose foothold."
+            </p>
+          </div>
+        </div>
+
+        <h3 style="margin: 26px 0 10px; color: var(--stone-900)">Feedback translation</h3>
+        <table>
+          <thead>
+            <tr><th>Invisible state</th><th>Meaning given to the player</th><th>Channels</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hands slipping</td>
+              <td>"the handhold is poor and smooth"</td>
+              <td>Trembling hand mesh, red grip bar, creaking sound, then the hold lets go</td>
+            </tr>
+            <tr>
+              <td>Body trembling</td>
+              <td>"he/she is nearly exhausted"</td>
+              <td>Limb tremor, swaying camera, heavy breathing audio whose rate tracks exhaustion</td>
+            </tr>
+            <tr>
+              <td>Body sway</td>
+              <td>"balance is lost or unstable"</td>
+              <td>Camera roll and sway, soft shifting-body sound, balance meter</td>
+            </tr>
+            <tr>
+              <td>Load on the arms</td>
+              <td>How much weight your feet are failing to carry</td>
+              <td>"Weight on arms" meter plus the energy drain it causes</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 style="margin: 26px 0 10px; color: var(--stone-900)">Success and failure</h3>
+        <div class="grid grid--2">
+          <div class="card">
+            <h3>Success</h3>
+            <p>Reach the summit hold with a hand while still attached to the wall.</p>
+          </div>
+          <div class="card">
+            <h3>Failure</h3>
+            <p>
+              Both hands come off (you fall) · energy reaches zero (you pump out) · the route clock
+              runs out.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap section">
+        <p class="section__kicker">Challenge space</p>
+        <h2 class="section__title">Three presets that differ by variable</h2>
+        <p>
+          Each preset changes system variables, not decoration. Values below are the ones actually
+          used in the build.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Challenge</th><th>Wall angle</th><th>Hold friction</th><th>Hold size</th>
+              <th>Routes</th><th>What it forces you to learn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1 · Gentle Warm-up Wall</strong><br /><small>shallow slope + large grippy holds</small></td>
+              <td>8°</td><td>0.84 – 0.97</td><td>1.15 – 1.50</td><td>Single line</td>
+              <td>Climb the simple upward path; notice your feet carrying you</td>
+            </tr>
+            <tr>
+              <td><strong>2 · Steep Slab Climb</strong><br /><small>moderate overhang + mixed-size holds</small></td>
+              <td>21°</td><td>0.52 – 0.88</td><td>0.72 – 1.34</td><td>Multiple branches</td>
+              <td>Route selection and stamina management</td>
+            </tr>
+            <tr>
+              <td><strong>3 · Slippery Climb</strong><br /><small>heavy overhang + sparse slippery holds</small></td>
+              <td>34°</td><td>0.32 – 0.62</td><td>0.48 – 0.92</td><td>Sparse single line</td>
+              <td>Reach judgement and risk-taking on few secure grips</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="callout" style="margin-top: 18px">
+          <strong>What failure teaches.</strong> "Slipping means poor weight distribution or low hold
+          friction; quick energy drain means bad body positioning; falling short of a hold means
+          misjudged reach." A reach that is too far costs effort instead of ending the run, so the
+          player can learn the boundary rather than only being punished at it.
+        </div>
+      </section>
+
+      <section class="wrap section">
+        <p class="section__kicker">Verification</p>
+        <h2 class="section__title">Proving the routes can actually be climbed</h2>
+        <p>
+          A climbable-looking wall is not the same as a climbable wall. Every route is checked by a
+          headless harness that imports the <em>same</em> simulation modules the browser runs and
+          climbs each route twice: once with good technique, once with the beginner habit the game
+          exists to correct.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Challenge</th><th>Good technique</th><th>Beginner habit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1 · Gentle Warm-up Wall</strong></td>
+              <td>Tops out · 26 moves · 26 s · 74% energy left</td>
+              <td>Tops out · 30% energy left — the wall forgives, as intended</td>
+            </tr>
+            <tr>
+              <td><strong>2 · Steep Slab Climb</strong></td>
+              <td>Tops out · 30 moves · 56 s · 88% energy left</td>
+              <td><strong>Falls at 7.3 m</strong></td>
+            </tr>
+            <tr>
+              <td><strong>3 · Slippery Climb</strong></td>
+              <td>Tops out · 32 moves · 89 s · 77% energy left</td>
+              <td><strong>Falls at 1.4 m</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="callout" style="margin-top: 18px">
+          <strong>How to read this.</strong> "Good technique" means hips kept close to the wall,
+          weight centred, feet moved before hands, and resting before the tank empties. "Beginner
+          habit" means hips pushed out so the arms carry the body, and never resting. The gentle wall
+          still lets you through on bad technique; the other two do not. That gap is the learning
+          shift from Section 2 of the brief, measured rather than asserted.
+        </div>
+      </section>
+
+      <section class="wrap section">
+        <p class="section__kicker">Current milestone</p>
+        <h2 class="section__title">What exists right now</h2>
+        <div class="card">
+          <p>
+            <strong>Milestone 1 is live.</strong> The build contains one complete
+            observe → judge → act → feedback → adjust loop and all three challenge presets. The
+            graphics are deliberately plain: holds are simple geometry with a procedural concrete
+            texture, and all audio is synthesised at runtime so nothing is fetched from a remote
+            service.
+          </p>
+          <ul>
+            <li>Four independently controllable limbs on handholds and footholds</li>
+            <li>Live load split between feet and hands, driven by hip distance and wall angle</li>
+            <li>Per-contact grip demand versus capacity, with a warning band before failure</li>
+            <li>Balance from centre of mass against the support span</li>
+            <li>Energy drain from arm loading, recoverable only by resting on your feet</li>
+          </ul>
+          <p style="margin-bottom: 0">
+            Not yet implemented: realistic texture scanning, richer animation, further coding of the
+            climbing feel, and the full visual polish described in the brief. These are recorded as
+            open work in the development log rather than claimed here.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-foot">
+      <div class="wrap">
+        Rock climbing on indoor climbing walls · Xinyuan Wang · Game Design from Everyday Life.
+        Built as a static site published with GitHub Pages.
+      </div>
+    </footer>
+  </body>
+</html>

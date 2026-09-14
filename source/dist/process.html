@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Development Process — Rock climbing on indoor climbing walls</title>
+    <link rel="stylesheet" crossorigin href="./assets/style-B08HvbPz.css">
+  </head>
+  <body>
+    <header class="nav">
+      <a class="nav__brand" href="./index.html">Rock climbing on indoor climbing walls</a>
+      <nav class="nav__links">
+        <a class="nav__link" href="./index.html">Home</a>
+        <a class="nav__link" href="./game.html">Play the Game</a>
+        <a class="nav__link is-active" href="./process.html">Development Process</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="wrap hero">
+        <p class="section__kicker">Development process</p>
+        <h1 style="font-size: clamp(1.9rem, 3.6vw, 2.8rem); letter-spacing: -0.02em; margin: 0 0 14px">
+          A human–AI timeline
+        </h1>
+        <p class="hero__lede">
+          This page mirrors <code>development-log/agent-development-log.md</code>. It records what
+          actually happened, including the mistakes. Nothing here has been smoothed over to look
+          like a cleaner process than it was.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="./game.html">Play the current build</a>
+          <a class="btn btn--ghost" href="./index.html">Project home</a>
+        </div>
+      </section>
+
+      <section class="wrap section">
+        <h2 class="section__title">Milestone 1 — first playable loop</h2>
+        <ol class="timeline">
+          <li>
+            <time>2026-09-08 · 11:15</time>
+            <h3>Indexing the workspace</h3>
+            <p>
+              The files were not where the project description said they were. The session workspace
+              was empty; the real folder was
+              <code>Desktop/大四上/Advanced lab/Game One - step 1/</code>. The file called
+              <code>brief.md</code> was actually <code>Rock-climbing-on-indoor-climbing-walls.md</code>,
+              and the system graph was a dated screenshot rather than <code>system-graph.png</code>.
+              Reported rather than guessed a fix.
+            </p>
+          </li>
+          <li>
+            <time>2026-09-08 · 11:26</time>
+            <h3>Agent failure: fabricated system-graph content</h3>
+            <p>
+              The agent attempted to read the system graph image and could not — the model does not
+              process images. Instead of saying so, it reported invented details as fact:
+              "Level 1 / Level 2 / Level 3" labels, a "player health (float)" variable, a
+              <code>Player health &gt; 0 &amp;&amp; Game Time &gt; 0</code> win clause, and an
+              "Exposed Data" list. None of that came from the image. It was retracted the following
+              turn, and the student was asked to verify the graph instead. Recorded here because the
+              log protocol requires recording exactly this.
+            </p>
+          </li>
+          <li>
+            <time>2026-09-08 · 11:50</time>
+            <h3>Contradiction in the brief resolved</h3>
+            <p>
+              The brief lists the tool and AI agent as <em>Unity</em>, while Sections 10, 11 and 14
+              require a browser game published from GitHub Pages. Treated the "Unity" entry as a
+              stale field and adopted the web stack. The student did not object, so this stands as an
+              AI-applied assumption.
+            </p>
+          </li>
+          <li>
+            <time>2026-09-08 · 11:56</time>
+            <h3>Milestone decisions made by the student</h3>
+            <p>
+              Two decisions were put to the student rather than assumed. Both were answered: build
+              <strong>Track C — Three.js, first-person 3D</strong> rather than the simpler 2D canvas
+              option, and treat <strong>the brief's Sections 4–5 as authoritative</strong> for the
+              system graph, which the student confirmed matches the drawing.
+            </p>
+          </li>
+          <li>
+            <time>2026-09-08 · 12:10</time>
+            <h3>Build: structure, simulation, scene, feedback, pages</h3>
+            <p>
+              The climbing model was written with environment data, player-controlled data and
+              calculated results kept in separate modules, as the brief requires. The wall tilts for
+              overhang while the camera stays gravity-aligned. Feedback channels were implemented as
+              specified: creaking for slipping, breathing and tremor for exhaustion, camera roll for
+              lost balance. All three pages exist from this first milestone rather than being added
+              later.
+            </p>
+          </li>
+          <li>
+            <time>2026-09-08 · 12:45</time>
+            <h3>Seven real defects found by testing, not by looking</h3>
+            <p>
+              No browser automation was available, so instead of assuming the build worked, a headless
+              harness was written to import the real simulation modules and climb each route. It
+              reported <strong>zero successful moves on all three routes</strong>. Every route was
+              unclimbable. Fixing them took seven separate corrections:
+            </p>
+            <ul>
+              <li>
+                The hip anchor was placed 0.58 m <em>below</em> the centre of mass, which put a
+                climber's hips underneath their own high footholds and made upward foot moves
+                geometrically impossible. The hips <em>are</em> the centre of mass.
+              </li>
+              <li>
+                Hands and feet were generated on two independent vertical ladders — hands 0.88 m per
+                step, feet 0.545 m — so by the top the hands were 4 m above the feet and the upper
+                half of every route could not be climbed at all. Routes are now generated by walking
+                an ideal climber up the wall and clamping each new hold into the disc that limb can
+                actually reach, so a completing route is guaranteed by construction.
+              </li>
+              <li>
+                Resting still lost energy on two of the three routes, because the arm-pumping cost was
+                charged at full rate while hanging on straight arms. No route past the first could be
+                finished.
+              </li>
+              <li>
+                A move cost 6.8 energy, so the tank emptied a third of the way up; the resulting
+                fatigue then shrank the player's reach below the distance the route was built for,
+                producing an unrecoverable spiral.
+              </li>
+              <li>
+                Wall steepness was charged twice — once by moving load off the feet, again by
+                reducing what a foothold could hold — so every foothold on the overhang popped the
+                moment a hand came off.
+              </li>
+              <li>
+                Popping one foot transferred the entire foot load onto the surviving foot, which
+                popped too, and the cascade emptied the wall within two frames. There was no window
+                to correct, so nothing could be learned from it.
+              </li>
+              <li>
+                The starting posture was already past the grip limit on the hardest route before the
+                player pressed a key, and a separate indexing bug handed the player one weak starting
+                grip and a foot 1.2 m above the other.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <time>2026-09-08 · current</time>
+            <h3>Build verification</h3>
+            <p>
+              The Vite build produces static output copied into the repository root, so GitHub Pages
+              serves it directly. All internal links and asset paths are relative, because Pages
+              serves from a repository subpath.
+            </p>
+          </li>
+        </ol>
+
+        <div class="callout" style="margin-top: 26px">
+          <strong>Open problems at this milestone.</strong> The climbing feel has not been
+          playtested by anyone other than the author. Grip thresholds, reach budgets and energy rates
+          are first guesses and will likely need tuning against real attempts. The visual polish
+          described in the brief is deliberately deferred. No live GitHub Pages URL has been
+          published yet at this milestone.
+        </div>
+
+        <h3 style="margin: 30px 0 12px; color: var(--stone-900)">AI influence so far</h3>
+        <div class="grid grid--2">
+          <div class="card">
+            <h3>Decisions the AI made (not from the brief)</h3>
+            <ul>
+              <li>Treated the "Unity" field as stale and used the web stack</li>
+              <li>
+                Derived concrete numeric ranges for the three presets, since the brief names the
+                presets qualitatively but gives no numbers
+              </li>
+              <li>
+                Chose a reach budget from shoulder and hip anchors rather than raw hold distance
+              </li>
+              <li>Synthesised all audio at runtime instead of shipping audio files</li>
+              <li>
+                Made an over-reach cost effort rather than end the run immediately
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Decisions the student made</h3>
+            <ul>
+              <li>Track C: Three.js first-person 3D from the first milestone</li>
+              <li>Confirmed the brief's text is authoritative over the drawing</li>
+              <li>
+                Did not accept the agent's fabrications about the system graph, and verified the
+                graph content directly
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-foot">
+      <div class="wrap">
+        Rock climbing on indoor climbing walls · Human–AI development timeline · This page is
+        generated from the repository's development log.
+      </div>
+    </footer>
+  </body>
+</html>
